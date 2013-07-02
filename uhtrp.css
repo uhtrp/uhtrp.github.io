@@ -1,0 +1,15 @@
+.table-stroke {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid rgba(0, 0, 0, .2);
+    margin-bottom: 10px;
+}
+.table-stroke thead {
+    border-bottom: 3px double rgba(0, 0, 0, .1);
+}
+.table-stroke th,
+.table-stroke td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+}

@@ -4,25 +4,9 @@
         <title>UHTRP</title> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+        <link rel="stylesheet" href="uhtrp.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-        <style>
-            .table-stroke {
-                width: 100%;
-                border-collapse: collapse;
-                border: 2px solid rgba(0, 0, 0, .2);
-            }
-            .table-stroke thead {
-                border-bottom: 3px double rgba(0, 0, 0, .1);
-            }
-            .table-stroke thead th,
-            .table-stroke tbody th,
-            .table-stroke tbody td {
-                text-align: left;
-                padding: 10px;
-                border: 1px solid rgba(0, 0, 0, .1);
-            }
-        </style>
     </head> 
     <body> 
         <div data-role="page" data-add-back-btn="true">
@@ -34,6 +18,9 @@
         	<div data-role="content">
                 
                 <div data-role="collapsible-set">
+                    
+                    <div data-role="collapsible"><h3>Asthma Management</h3>
+                    </div>
                     
                     <div data-role="collapsible"><h3>HIV Prophylaxis</h3>
                         <table class="table-stroke">
@@ -69,10 +56,63 @@
                         </table>
                     </div>
                     
-                    <div data-role="collapsible"><h3>Asthma Management</h3>
-                    </div>
-                    
-                    <div data-role="collapsible"><h3>Modified CENTOR Criteria</h3>
+                    <div data-role="collapsible"><h3>Modified Centor Score</h3>
+                        <table class="table-stroke">
+                            <thead>
+                                <tr>
+                                    <th>Criteria</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Absence of cough</td>
+                                    <td>+ 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Swollen/tender lymph nodes</td>
+                                    <td>+ 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Fever (&gt; 38&deg;C)</td>
+                                    <td>+ 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Tonsillar exudates</td>
+                                    <td>+ 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Age 3 &ndash; 14</td>
+                                    <td>+ 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Age &ge; 45</td>
+                                    <td>&minus; 1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table-stroke">
+                            <thead>
+                                <tr>
+                                    <th>Score</th>
+                                    <th>Treatment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&le; 1</td>
+                                    <td>No testing or antibiotics</td>
+                                </tr>
+                                <tr>
+                                    <td>2 &ndash; 3</td>
+                                    <td>Rapid Ag test; penicillin if positive</td>
+                                </tr>
+                                <tr>
+                                    <td>&ge; 4</td>
+                                    <td>Empiric penicillin</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     
                 </div>
