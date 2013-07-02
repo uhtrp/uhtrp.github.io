@@ -7,29 +7,20 @@
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
         <style>
-            .table-stroke thead th {
-                border-bottom: 1px solid rgba(0, 0, 0, .1);
+            .table-stroke {
+                width: 100%;
+                border-collapse: collapse;
+                border: 2px solid rgba(0, 0, 0, .2);
             }
+            .table-stroke thead {
+                border-bottom: 3px double rgba(0, 0, 0, .1);
+            }
+            .table-stroke thead th,
             .table-stroke tbody th,
             .table-stroke tbody td {
-                border-bottom: 1px solid rgba(0, 0, 0, .05);
-            }
-            @media ( min-width: 20em ) {
-                /* Show the table header rows and set all cells to display: table-cell */ 
-                .reflow20 td,
-                .reflow20 th,
-                .reflow20 tbody th,
-                .reflow20 tbody td,
-                .reflow20 thead td,
-                .reflow20 thead th {
-                    display: table-cell;
-                    margin: 0;
-                }
-                /* Hide the labels in each cell */ 
-                .reflow20 td .ui-table-cell-label,
-                .reflow20 th .ui-table-cell-label { 
-                    display: none;
-                }
+                text-align: left;
+                padding: 10px;
+                border: 1px solid rgba(0, 0, 0, .1);
             }
         </style>
     </head> 
@@ -45,7 +36,7 @@
                 <div data-role="collapsible-set">
                     
                     <div data-role="collapsible"><h3>HIV Prophylaxis</h3>
-                        <table class="reflow20 table-stroke" data-role="table">
+                        <table class="table-stroke">
                             <thead>
                                 <tr>
                                     <th>Infection</th>
