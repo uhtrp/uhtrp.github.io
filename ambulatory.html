@@ -6,45 +6,75 @@
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+        <style>
+            .table-stroke thead th {
+                border-bottom: 1px solid rgba(0, 0, 0, .1);
+            }
+            .table-stroke tbody th,
+            .table-stroke tbody td {
+                border-bottom: 1px solid rgba(0, 0, 0, .05);
+            }
+            @media ( min-width: 40em ) {
+                /* Show the table header rows and set all cells to display: table-cell */ 
+                .reflow40 td,
+                .reflow40 th,
+                .reflow40 tbody th,
+                .reflow40 tbody td,
+                .reflow40 thead td,
+                .reflow40 thead th {
+                    display: table-cell;
+                    margin: 0;
+                }
+                /* Hide the labels in each cell */ 
+                .reflow40 td .ui-table-cell-label,
+                .reflow40 th .ui-table-cell-label { 
+                    display: none;
+                }
+            }
+        </style>
     </head> 
     <body> 
-        <div data-role="page">
+        <div data-role="page" data-add-back-btn="true">
 
         	<div data-role="header" data-position="fixed">
         		<h1>UHTRP</h1>
         	</div><!-- /header -->
 
         	<div data-role="content">
-
+                
                 <div data-role="collapsible-set">
                     
                     <div data-role="collapsible"><h3>HIV Prophylaxis</h3>
-                        <table>
-                            <tr>
-                                <th>Infection</th>
-                                <th>Drug</th>
-                                <th>CD4 count</th>
-                            </tr>
-                            <tr>
-                                <td>Pneumocystis jirovecii pneumonia</td>
-                                <td>Trimethoprim-sulfamethoxazole 160mg/800mg po daily</td>
-                                <td>&lt; 200 cells/&micro;L</td>
-                            </tr>
-                            <tr>
-                                <td>Toxoplasmosis</td>
-                                <td>Trimethoprim-sulfamethoxazole 160mg/800mg po daily</td>
-                                <td>&lt; 100 cells/&micro;L</td>
-                            </tr>
-                            <tr>
-                                <td>Histoplasmosis</td>
-                                <td>Itraconazole 200mg po daily</td>
-                                <td>&lt; 100 cells/&micro;L</td>
-                            </tr>
-                            <tr>
-                                <td>Mycobacterium avium complex</td>
-                                <td>Azithromycin 1200mg po weekly</td>
-                                <td>&lt; 50 cells/&micro;L</td>
-                            </tr>
+                        <table class="reflow40 table-stroke" data-role="table">
+                            <thead>
+                                <tr>
+                                    <th>Infection</th>
+                                    <th>CD4 count</th>
+                                    <th>Rx</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>P. jirovecii</td>
+                                    <td>&lt; 200</td>
+                                    <td>Trimethoprim-sulfamethoxazole 160mg/800mg po daily</td>
+                                </tr>
+                                <tr>
+                                    <td>T. gondii</td>
+                                    <td>&lt; 100</td>
+                                    <td>Trimethoprim-sulfamethoxazole 160mg/800mg po daily</td>
+                                </tr>
+                                <tr>
+                                    <td>H. capsulatum</td>
+                                    <td>&lt; 100</td>
+                                    <td>Itraconazole 200mg po daily</td>
+                                </tr>
+                                <tr>
+                                    <td>MAC</td>
+                                    <td>&lt; 50</td>
+                                    <td>Azithromycin 1200mg po weekly</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     
