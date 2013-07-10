@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>UHTRP</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+        <link rel="stylesheet" href="uhtrp.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    </head> 
+    <body> 
+        <div data-role="page" data-add-back-btn="true">
+
+        	<div data-role="header" data-position="fixed">
+        		<h1>UHTRP</h1>
+        	</div><!-- /header -->
+
+        	<div data-role="content">
+                
+                <ul id="selected-recipients" data-role="listview" data-inset="true">
+                </ul>
+                
+                <ul id="unselected-recipients" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Name or Pager #" data-inset="true">
+                </ul>
+
+            </div><!-- /content -->
+
+        </div><!-- /page -->
+        
+        <script>
+            var pagers = null;
+            $.getJSON('pagers.json').done(function(data) {
+                pagers = data;
+                $.each(pagers, function(key, val) {
+                    $('#unselected-recipients').append('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a href="#">' + val + ' [' + key.slice(-4) + ']</a></li>');
+                });
+            });
+            
+            var add_recipient = null;
+            var remove_recipient = null;
+            var numeric_recipient = null;
+            
+            add_recipient = function() {
+                var key = $(this).attr('id').toString();
+                var el = null;
+                if (key in pagers) {
+                    var val = pagers[key];
+                    el = $('<li id="' + key + '" data-icon="delete"><a href="#">' + val + ' [' + key.slice(-4) + ']</a></li>');
+                } else {
+                    el = $('<li id="' + key + '" data-icon="delete"><a href="#">' + key + '</a></li>');
+                }
+                el.click(remove_recipient);
+                $(this).remove();
+                $('#selected-recipients').append(el);
+                $('#selected-recipients').listview('refresh');
+                $('#unselected-recipients').listview('refresh');
+                $('div.ui-input-search > input').val('').focus().trigger('change');
+            };
+            
+            remove_recipient = function() {
+                var key = $(this).attr('id').toString();
+                if (key in pagers) {
+                    var val = pagers[key];
+                    var el = $('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a href="#">' + val + ' [' + key.slice(-4) + ']</a></li>');
+                    el.click(add_recipient);
+                    $(this).remove();
+                    $('#unselected-recipients').append(el);
+                    $('#unselected-recipients').listview('refresh');
+                } else {
+                    $(this).remove();
+                }
+                $('#selected-recipients').listview('refresh');
+                $('div.ui-input-search > input').val('').focus().trigger('change');
+            };
+            
+            numeric_recipient = function() {
+                var tendigit = /^\d{10}$/;
+                var sevendigit = /^\d{7}$/;
+                var fourdigit = /^\d{4}$/;
+                var key = null;
+                
+                if (fourdigit.test($(this).val()))
+                    key = '808577' + $(this).val();
+                else if (sevendigit.test($(this).val()))
+                    key = '808' + $(this).val();
+                else if (tendigit.test($(this).val()))
+                    key = $(this).val().toString();
+                
+                if (key !== null) {
+                    if ($('#' + key).length == 0) {
+                        var el = $('<li id="' + key + '" class="numrec" data-filtertext="' + key + '"><a href="#">' + key + '</a></li>');
+                        el.click(add_recipient);
+                        $('#unselected-recipients').append(el);
+                        $('#unselected-recipients').listview('refresh');
+                    }
+                } else {
+                    $('.numrec').remove();
+                }
+            }
+            
+            $(document).ready(function() {
+                $('#unselected-recipients').listview('refresh');                
+                $('#unselected-recipients > li').click(add_recipient);
+                $('div.ui-input-search > input').keyup(numeric_recipient);
+            });
+        </script>
+    </body>
+</html>
