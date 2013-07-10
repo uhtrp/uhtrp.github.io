@@ -14,6 +14,8 @@ add_recipient = function() {
     $('#selected-recipients').listview('refresh');
     $('#unselected-recipients').listview('refresh');
     $('div.ui-input-search > input').val('').trigger('change');
+    if ($('#selected-recipients > li').length > 9)
+        $('div.ui-input-search > input').val('Maximum number of recipients reached!').textinput('disable');
     return false;
 };
 
@@ -23,13 +25,13 @@ remove_recipient = function() {
     $('#' + key).remove();
     if (key in pagers) {
         var txt = pagers[key] + ' [' + key.slice(-4) + ']';
-        var li = $('<li id="' + key + '" data-filtertext="' + key + ' ' + pagers[key] + '"><a href="#">' + txt + '</a></li>');
+        var li = $('<li id="' + key + '" data-icon="plus" data-filtertext="' + key + ' ' + pagers[key] + '"><a href="#">' + txt + '</a></li>');
         li.click(add_recipient);
         $('#unselected-recipients').append(li);
         $('#unselected-recipients').listview('refresh');
     }
     $('#selected-recipients').listview('refresh');
-    $('div.ui-input-search > input').trigger('change');
+    $('div.ui-input-search > input').val('').textinput('enable').trigger('change');
     return false;
 };
 
@@ -48,7 +50,7 @@ numeric_recipient = function() {
     
     if ((key !== null) && ($('#' + key).length == 0)) {
         var txt = key;
-        var li = $('<li id="' + key + '" class="numrec" data-filtertext="' + key + '"><a href="#">' + txt + '</a></li>');
+        var li = $('<li id="' + key + '" class="numrec" data-icon="plus" data-filtertext="' + key + '"><a href="#">' + txt + '</a></li>');
         li.click(add_recipient);
         $('#unselected-recipients').append(li);
     } else {
@@ -64,7 +66,7 @@ $(document).delegate('#pagingpage', 'pageinit', function() {
         pagers = data;
         $.each(pagers, function(key, val) {
             var txt = pagers[key] + ' [' + key.slice(-4) + ']';
-            var li = $('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a href="#">' + txt + '</a></li>');
+            var li = $('<li id="' + key + '" data-icon="plus" data-filtertext="' + key + ' ' + val + '"><a href="#">' + txt + '</a></li>');
             li.click(add_recipient);
             $('#unselected-recipients').append(li);
         });
