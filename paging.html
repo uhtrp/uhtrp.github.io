@@ -32,7 +32,7 @@
             $.getJSON('pagers.json').done(function(data) {
                 pagers = data;
                 $.each(pagers, function(key, val) {
-                    $('#unselected-recipients').append('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a href="#">' + val + ' [' + key.slice(-4) + ']</a></li>');
+                    $('#unselected-recipients').append('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a>' + val + ' [' + key.slice(-4) + ']</a></li>');
                 });
             });
             
@@ -45,9 +45,9 @@
                 var el = null;
                 if (key in pagers) {
                     var val = pagers[key];
-                    el = $('<li id="' + key + '" data-icon="delete"><a href="#">' + val + ' [' + key.slice(-4) + ']</a></li>');
+                    el = $('<li id="' + key + '" data-icon="delete"><a>' + val + ' [' + key.slice(-4) + ']</a></li>');
                 } else {
-                    el = $('<li id="' + key + '" data-icon="delete"><a href="#">' + key + '</a></li>');
+                    el = $('<li id="' + key + '" data-icon="delete"><a>' + key + '</a></li>');
                 }
                 el.click(remove_recipient);
                 $(this).remove();
@@ -61,7 +61,7 @@
                 var key = $(this).attr('id').toString();
                 if (key in pagers) {
                     var val = pagers[key];
-                    var el = $('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a href="#">' + val + ' [' + key.slice(-4) + ']</a></li>');
+                    var el = $('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a>' + val + ' [' + key.slice(-4) + ']</a></li>');
                     el.click(add_recipient);
                     $(this).remove();
                     $('#unselected-recipients').append(el);
@@ -88,7 +88,7 @@
                 
                 if (key !== null) {
                     if ($('#' + key).length == 0) {
-                        var el = $('<li id="' + key + '" class="numrec" data-filtertext="' + key + '"><a href="#">' + key + '</a></li>');
+                        var el = $('<li id="' + key + '" class="numrec" data-filtertext="' + key + '"><a>' + key + '</a></li>');
                         el.click(add_recipient);
                         $('#unselected-recipients').append(el);
                         $('#unselected-recipients').listview('refresh');
