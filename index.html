@@ -16,6 +16,18 @@
         	</div><!-- /header -->
 
         	<div data-role="content">
+                
+                <a href="paging.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Paging</a>
+                
+                <hr>
+                
+                <form action="http://pmagonline.org/goto_UpToDate.php?unid=00001390&srcsys=UTD1282872&eiv=2.1.0" method="get">
+                    <label class="ui-hidden-accessible" for="search">UpToDate:</label>
+                    <input name="search" id="search" value="" placeholder="UpToDate" type="search">
+                </form>
+                
+                <hr>
+            
                 <div data-role="controlgroup">
                     <a href="medicine.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Medicine</a>
                     <a href="surgery.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Surgery</a>
@@ -23,34 +35,7 @@
                     <a href="emergency.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Emergency</a>
                     <a href="ambulatory.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Ambulatory</a>
                 </div>
-                
-                <form action="http://pmagonline.org/goto_UpToDate.php?unid=00001390&srcsys=UTD1282872&eiv=2.1.0" method="get">
-                    <label class="ui-hidden-accessible" for="search">UpToDate:</label>
-                    <input name="search" id="search" value="" placeholder="UpToDate" type="search">
-                </form>
-                
-                <form action="#" method="get">
-                    <label for="pagerlist" class="select">Recipients:</label>
-                    <select name="pagerlist" id="pagerlist" multiple="multiple" data-native-menu="false">
-                        <option>Select recipients:</option>
-                        <optgroup label="Transitional Year">
-                            <option value="2010">Bluth, J</option>
-                            <option value="2078">Ishihara, D</option>
-                            <option value="2099">Landherr, M</option>
-                            <option value="2113">Lau, S</option>
-                            <option value="2113">Patel, V</option>
-                            <option value="2113">Rao, R</option>
-                            <option value="2113">Tan, C</option>
-                            <option value="2113">Yee, J</option>
-                            <option value="2113">Yim, M</option>
-                        </optgroup>
-                        <optgroup label="Internal Medicine (Preliminary)">
-                            <option value="">First Overnight</option>
-                            <option value="">Express Saver</option>
-                            <option value="">Ground</option>
-                        </optgroup>
-                    </select>
-                </form>
+ 
             </div><!-- /content -->
 
         </div><!-- /page -->
