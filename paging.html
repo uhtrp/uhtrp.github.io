@@ -29,48 +29,51 @@
         
         <script>
             var pagers = null;
-            $.getJSON('pagers.json').done(function(data) {
-                pagers = data;
-                $.each(pagers, function(key, val) {
-                    $('#unselected-recipients').append('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a>' + val + ' [' + key.slice(-4) + ']</a></li>');
-                });
-            });
-            
             var add_recipient = null;
             var remove_recipient = null;
             var numeric_recipient = null;
             
-            add_recipient = function() {
-                var key = $(this).attr('id').toString();
-                var el = null;
-                if (key in pagers) {
-                    var val = pagers[key];
-                    el = $('<li id="' + key + '" data-icon="delete"><a>' + val + ' [' + key.slice(-4) + ']</a></li>');
-                } else {
-                    el = $('<li id="' + key + '" data-icon="delete"><a>' + key + '</a></li>');
-                }
-                el.click(remove_recipient);
+            $.getJSON('pagers.json').done(function(data) {
+                pagers = data;
+                $.each(pagers, function(key, val) {
+                    var txt = pagers[key] + ' [' + key.slice(-4) + ']';
+                    var a = $('<a data-pagerid="' + key + '" href="#">' + txt + '</a>');
+                    var li = $('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"></li>');
+                    li.append(a);
+                    $('#unselected-recipients').append(li);
+                });
+            });
+            
+           add_recipient = function() {
+                var key = $(this).data('pagerid').toString();
+                var txt = (key in pagers) ? pagers[key] + ' [' + key.slice(-4) + ']' : key;
+                var a = $('<a data-pagerid="' + key + '" href="#">' + txt + '</a>');
+                var li = $('<li id="' + key + '" data-icon="delete"></li>');
+                a.click(remove_recipient);
+                li.append(a);
                 $(this).remove();
-                $('#selected-recipients').append(el);
+                $('#selected-recipients').append(li);
                 $('#selected-recipients').listview('refresh');
                 $('#unselected-recipients').listview('refresh');
                 $('div.ui-input-search > input').val('').focus().trigger('change');
+                return false;
             };
             
             remove_recipient = function() {
-                var key = $(this).attr('id').toString();
+                var key = $(this).data('pagerid').toString();
+                $('#' + key).remove();
                 if (key in pagers) {
-                    var val = pagers[key];
-                    var el = $('<li id="' + key + '" data-filtertext="' + key + ' ' + val + '"><a>' + val + ' [' + key.slice(-4) + ']</a></li>');
-                    el.click(add_recipient);
-                    $(this).remove();
-                    $('#unselected-recipients').append(el);
+                    var txt = pagers[key] + ' [' + key.slice(-4) + ']';
+                    var a = $('<a data-pagerid="' + key + '" href="#">' + txt + '</a>');
+                    var li = $('<li id="' + key + '" data-filtertext="' + key + ' ' + pagers[key] + '"></li>');
+                    a.click(add_recipient);
+                    li.append(a);
+                    $('#unselected-recipients').append(li);
                     $('#unselected-recipients').listview('refresh');
-                } else {
-                    $(this).remove();
                 }
                 $('#selected-recipients').listview('refresh');
                 $('div.ui-input-search > input').val('').focus().trigger('change');
+                return false;
             };
             
             numeric_recipient = function() {
@@ -86,22 +89,24 @@
                 else if (tendigit.test($(this).val()))
                     key = $(this).val().toString();
                 
-                if (key !== null) {
-                    if ($('#' + key).length == 0) {
-                        var el = $('<li id="' + key + '" class="numrec" data-filtertext="' + key + '"><a>' + key + '</a></li>');
-                        el.click(add_recipient);
-                        $('#unselected-recipients').append(el);
-                        $('#unselected-recipients').listview('refresh');
-                    }
+                if ((key !== null) && ($('#' + key).length == 0)) {
+                    var txt = key;
+                    var a = $('<a data-pagerid="' + key + '" href="#">' + txt + '</a>');
+                    var li = $('<li id="' + key + '" class="numrec" data-filtertext="' + key + '"></li>');
+                    a.click(add_recipient);
+                    li.append(a);
+                    $('#unselected-recipients').append(li);
                 } else {
                     $('.numrec').remove();
                 }
+                
+                $('#unselected-recipients').listview('refresh');
             }
             
             $(document).ready(function() {
-                $('#unselected-recipients').listview('refresh');                
-                $('#unselected-recipients > li').click(add_recipient);
-                $('div.ui-input-search > input').keyup(numeric_recipient);
+                $('#unselected-recipients').listview('refresh');   
+                $('#unselected-recipients > li a').click(add_recipient);
+                $('div.ui-input-search > input').on('input', numeric_recipient);
             });
         </script>
     </body>
