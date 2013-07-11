@@ -1,36 +1,37 @@
-<!DOCTYPE html> 
-<html> 
-    <head> 
-        <title>UHTRP</title> 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>UHTRP Mobile - Paging</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
         <link rel="stylesheet" href="uhtrp.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
         <script src="uhtrp.js"></script>
-    </head> 
-    <body> 
+    </head>
+    <body>
         <div id="pagingpage" data-role="page" data-add-back-btn="true">
 
-        	<div data-role="header" data-position="fixed" data-theme="b">
-        		<h1>UHTRP &raquo; Paging</h1>
-        	</div><!-- /header -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <h1>UHTRP &raquo; Paging</h1>
+            </div><!-- /header -->
 
-        	<div data-role="content">
-                
-                <h3>Recipients</h3>
-                
-                <ul id="selected-recipients" data-role="listview" data-inset="true">
-                </ul>
-                
-                <ul id="unselected-recipients" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Add by Name or Pager #" data-inset="true">
-                </ul>
-                
-                <hr>
-                <h3>Message</h3>
-                
-                <textarea></textarea>
-                
+            <div data-role="content">
+
+                    <div class="field">
+                        <h3>Recipients</h3>
+                        <ul id="selected-recipients" data-role="listview" data-inset="true"></ul>
+                        <ul id="unselected-recipients" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Add by Name or Pager #" data-inset="true"></ul>
+                    </div>
+
+                    <div class="field">
+                        <h3>Message</h3>
+                        <textarea id="message"></textarea>
+                        <div id="charcount"></div>
+                    </div>
+
+                    <a href="#" id="send" class="ui-disabled" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b">Send</a>
 
             </div><!-- /content -->
 

@@ -1,5 +1,14 @@
-h3 {
+.field {
+    padding-bottom: 0.8em;
+    border-bottom: 1px solid rgba(130, 130, 130, 0.3);
+}
+
+.field h3 {
     text-align: center;
+}
+
+#charcount {
+    text-align: right;
 }
 
 .table-stroke {

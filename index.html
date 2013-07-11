@@ -1,34 +1,35 @@
-<!DOCTYPE html> 
-<html> 
-    <head> 
-        <title>UHTRP</title> 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>UHTRP Mobile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
         <link rel="stylesheet" href="uhtrp.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
         <script src="uhtrp.js"></script>
-    </head> 
-    <body> 
+    </head>
+    <body>
         <div data-role="page">
 
-        	<div data-role="header" data-position="fixed" data-theme="b">
-        		<h1>UHTRP</h1>
-        	</div><!-- /header -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <h1>UHTRP</h1>
+            </div><!-- /header -->
 
-        	<div data-role="content">
-                
+            <div data-role="content">
+
                 <a href="paging.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Paging</a>
-                
+
                 <hr>
-                
+
                 <form action="http://pmagonline.org/goto_UpToDate.php?unid=00001390&srcsys=UTD1282872&eiv=2.1.0" method="get">
                     <label class="ui-hidden-accessible" for="utdindex">UpToDate:</label>
                     <input name="search" id="utdindex" value="" placeholder="UpToDate" type="search">
                 </form>
-                
+
                 <hr>
-            
+
                 <div data-role="controlgroup">
                     <a href="medicine.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Medicine</a>
                     <a href="surgery.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Surgery</a>
@@ -36,7 +37,7 @@
                     <a href="emergency.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Emergency</a>
                     <a href="ambulatory.html" data-role="button" data-icon="arrow-r" data-iconpos="right">Ambulatory</a>
                 </div>
- 
+
             </div><!-- /content -->
 
         </div><!-- /page -->
