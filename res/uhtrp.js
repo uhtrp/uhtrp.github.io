@@ -14,6 +14,8 @@ var UHTRP_Paging = {};
     var character_notice = {};
     var send_button = {};
     var pager_form = {};
+    var paging_modal = {};
+    var paging_recipient = {};
     var submitted_list = [];
     var cur_recipient = 0;
     var initialized = false;
@@ -28,9 +30,10 @@ var UHTRP_Paging = {};
             character_notice = $('#charcount');
             send_button = $('#send');
             pager_form = $('<form method="post" action="' + CGI_ENDPOINT + '" target="pageresult"><input type="hidden" name="PIN"><input type="hidden" name="MSSG"><input type="hidden" name="Q1" value="0"></form>');
+            paging_modal = $('#modal');
+            paging_recipient = $('#current_recipient');
             $('#pagingpage').append(pager_form.hide());
-            $('#pagingpage').append($('<iframe name="pageresult"></iframe>'));
-
+            $('#pagingpage').append($('<iframe name="pageresult"></iframe>').hide());
 
             $.getJSON(PAGERS_DB).done(function(data) {
                 pagers = data;
@@ -45,6 +48,7 @@ var UHTRP_Paging = {};
             });
             message_text.on('input', obj, obj.count_characters).trigger('input');
             send_button.click(obj, obj.page_request);
+            send_button.addClass('ui-disabled');
             initialized = true;
         }
     };
@@ -132,21 +136,29 @@ var UHTRP_Paging = {};
         submitted_list = [];
         cur_recipient = 0;
         $.each(selected_list.children('li'), function(idx, val) {
-            submitted_list.push(val.attr('id'));
+            submitted_list.push($(val).attr('id'));
         });
+        pager_form.find('input[name="MSSG"]').val(message_text.val());
         post_page();
-//        pager_form.submit();
     };
 
     var post_page = function() {
         if (cur_recipient < submitted_list.length) {
             var key = submitted_list[cur_recipient].toString();
             var txt = (key in pagers) ? pagers[key] + ' [' + key.slice(-4) + ']' : key;
-            $('#current-recipient').text(txt);
+            paging_recipient.text(txt);
+            cur_recipient++;
+            pager_form.find('input[name="PIN"]').val(key);
+            // pager_form.submit();
             setTimeout(post_page, 2000);
         } else {
             submitted_list = [];
             cur_recipient = 0;
+            message_text.val('').trigger('input');
+            $.each(selected_list.children('li'), function(idx, val) {
+                $(val).trigger('click');
+            });
+            paging_modal.popup('close');
         }
     };
 }).apply(UHTRP_Paging);
