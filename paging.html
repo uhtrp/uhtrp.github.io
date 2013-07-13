@@ -19,20 +19,30 @@
 
             <div data-role="content">
 
-                    <div class="field">
-                        <h3>Recipients</h3>
-                        <ul id="selected-recipients" data-role="listview" data-inset="true"></ul>
-                        <ul id="unselected-recipients" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Add by Name or Pager #" data-inset="true"></ul>
-                    </div>
+                <div class="field">
+                    <h3>Recipients</h3>
+                    <ul id="selected-recipients" data-role="listview" data-inset="true"></ul>
+                    <ul id="unselected-recipients" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Add by Name or Pager #" data-inset="true"></ul>
+                </div>
 
-                    <div class="field">
-                        <h3>Message</h3>
-                        <textarea id="message"></textarea>
-                        <div id="charcount"></div>
-                    </div>
+                <div class="field">
+                    <h3>Message</h3>
+                    <textarea id="message"></textarea>
+                    <div id="charcount"></div>
+                </div>
 
-                    <a href="#" id="send" class="ui-disabled" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b">Send</a>
-                    <textarea id="debug"></textarea>
+                <a href="#modal" id="send" class="ui-disabled" data-rel="popup" data-position-to="window" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b">Send</a>
+
+                <div id="modal" data-role="popup" data-overlay-theme="a" data-dismissible="false">
+                    <div data-role="header" data-theme="b">
+                        <h1>Paging &hellip;</h1>
+                    </div>
+                    <div data-role="content">
+                        <p id="current-recipient"></p>
+                        <p><img src="res/ajax-loader.gif"></p>
+                        <p><a href="#" data-role="button" data-inline="true" data-rel="back" data-mini="true">Cancel</a></p>
+                    </div>
+                </div>
 
             </div><!-- /content -->
 

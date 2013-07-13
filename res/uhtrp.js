@@ -3,7 +3,7 @@ var UHTRP_Paging = {};
     var MAX_RECIPIENTS = 10;
     var MAX_CHARACTERS = 240;
     var PAGERS_DB = 'res/pagers.json';
-    var WCTP_ENDPOINT = 'https://wctp.usamobility.net/wctp';
+    var CGI_ENDPOINT = 'https://www.usamobility.net/cgi-bin/wwwpage.exe';
     var num_recipients = 0;
     var num_characters = 0;
     var pagers = {};
@@ -13,6 +13,9 @@ var UHTRP_Paging = {};
     var message_text = {};
     var character_notice = {};
     var send_button = {};
+    var pager_form = {};
+    var submitted_list = [];
+    var cur_recipient = 0;
     var initialized = false;
 
     this.initialize = function(obj) {
@@ -24,6 +27,10 @@ var UHTRP_Paging = {};
             message_text = $('#message');
             character_notice = $('#charcount');
             send_button = $('#send');
+            pager_form = $('<form method="post" action="' + CGI_ENDPOINT + '" target="pageresult"><input type="hidden" name="PIN"><input type="hidden" name="MSSG"><input type="hidden" name="Q1" value="0"></form>');
+            $('#pagingpage').append(pager_form.hide());
+            $('#pagingpage').append($('<iframe name="pageresult"></iframe>'));
+
 
             $.getJSON(PAGERS_DB).done(function(data) {
                 pagers = data;
@@ -116,10 +123,32 @@ var UHTRP_Paging = {};
     };
 
     this.page_request = function(evt) {
-        var xml = '<?xml version="1.0" encoding "UTF-8"?><!DOCTYPE wctp-Operation SYSTEM "http://dtd.wctp.org/wctp-dtd-v1r1.dtd">';
-        evt.preventDefault();
+    /*  Ideally, would use wctp here, but POSTing raw data requires
+        XHR which is limited by the same-origin policy. Using a proxy
+        to bridge would require trusting the server with the message.
+        POSTing to the CGI repeatedly for each recipient foregoes
+        error-checking, but requires only a trusted client.           */
+
+        submitted_list = [];
+        cur_recipient = 0;
+        $.each(selected_list.children('li'), function(idx, val) {
+            submitted_list.push(val.attr('id'));
+        });
+        post_page();
+//        pager_form.submit();
     };
 
+    var post_page = function() {
+        if (cur_recipient < submitted_list.length) {
+            var key = submitted_list[cur_recipient].toString();
+            var txt = (key in pagers) ? pagers[key] + ' [' + key.slice(-4) + ']' : key;
+            $('#current-recipient').text(txt);
+            setTimeout(post_page, 2000);
+        } else {
+            submitted_list = [];
+            cur_recipient = 0;
+        }
+    };
 }).apply(UHTRP_Paging);
 
 

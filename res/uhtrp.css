@@ -1,5 +1,5 @@
 .field {
-    padding-bottom: 0.8em;
+    padding-bottom: 12px;
     border-bottom: 1px solid rgba(130, 130, 130, 0.3);
 }
 
@@ -25,4 +25,9 @@
     text-align: left;
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, .1);
+}
+
+#modal {
+    min-width: 320px;
+    text-align: center;
 }
