@@ -14,6 +14,8 @@ var UHTRP_Paging = {};
     var character_notice = {};
     var send_button = {};
     var pager_form = {};
+    var msg_field = {};
+    var pin_field = {};
     var paging_modal = {};
     var paging_recipient = {};
     var submitted_list = [];
@@ -29,9 +31,13 @@ var UHTRP_Paging = {};
             message_text = $('#message');
             character_notice = $('#charcount');
             send_button = $('#send');
-            pager_form = $('<form method="post" action="' + CGI_ENDPOINT + '" target="pageresult"><input type="hidden" name="PIN"><input type="hidden" name="MSSG"><input type="hidden" name="Q1" value="0"></form>');
+            pager_form = $('<form method="post" action="' + CGI_ENDPOINT + '" target="pageresult"><input type="hidden" name="Q1" value="0"></form>');
+            msg_field = $('<input type="hidden" name="MSSG">');
+            pin_field = $('<input type="hidden" name="PIN">');
+            pager_form.append(msg_field);
+            pager_form.append(pin_field);
             paging_modal = $('#modal');
-            paging_recipient = $('#current_recipient');
+            paging_recipient = $('#current-recipient');
             $('#pagingpage').append(pager_form.hide());
             $('#pagingpage').append($('<iframe name="pageresult"></iframe>').hide());
 
@@ -133,12 +139,14 @@ var UHTRP_Paging = {};
         POSTing to the CGI repeatedly for each recipient foregoes
         error-checking, but requires only a trusted client.           */
 
+        evt.preventDefault();
         submitted_list = [];
         cur_recipient = 0;
         $.each(selected_list.children('li'), function(idx, val) {
             submitted_list.push($(val).attr('id'));
         });
-        pager_form.find('input[name="MSSG"]').val(message_text.val());
+        msg_field.val(message_text.val());
+        paging_modal.popup('open');
         post_page();
     };
 
@@ -146,9 +154,10 @@ var UHTRP_Paging = {};
         if (cur_recipient < submitted_list.length) {
             var key = submitted_list[cur_recipient].toString();
             var txt = (key in pagers) ? pagers[key] + ' [' + key.slice(-4) + ']' : key;
+            console.log(paging_recipient);
             paging_recipient.text(txt);
             cur_recipient++;
-            pager_form.find('input[name="PIN"]').val(key);
+            pin_field.val(key);
             // pager_form.submit();
             setTimeout(post_page, 2000);
         } else {
